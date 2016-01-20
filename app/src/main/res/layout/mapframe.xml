@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <FrameLayout
+        android:id="@+id/route_condition_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginRight="46.0dip"
+        android:background="@drawable/route_condition_tip"
+        android:paddingTop="4.0dip"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/route_func_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4.0dip"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/road_condition_container"
+                android:layout_width="40.0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4.0dip"
+                android:background="@drawable/main_button"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/road_condition"
+                    android:layout_width="40.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/main_icon_roadcondition_off" />
+
+                <TextView
+                    android:id="@+id/traffic_divider"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="@android:color/white"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/traffic_radio"
+                    android:layout_width="40.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/main_icon_traffic_radio"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_layer"
+                android:layout_width="40.0dip"
+                android:layout_height="40.0dip"
+                android:layout_marginTop="4.0dip">
+
+                <ImageView
+                    android:id="@+id/iv_layer_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="4.0dip"
+                    android:layout_marginTop="5.0dip"
+                    android:src="@drawable/hot_point"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/map_layers"
+                    android:layout_width="40.0dip"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/main_button"
+                    android:src="@drawable/main_icon_maplayers" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/map_street_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4.0dip">
+
+                <ImageButton
+                    android:id="@+id/map_street"
+                    android:layout_width="40.0dip"
+                    android:layout_height="40.0dip"
+                    android:background="@drawable/main_button"
+                    android:src="@drawable/main_map_icon_streetscape" />
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_zoom"
+        android:layout_width="40.0dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/route_func_icons"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginRight="6.0dip"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/zoom_in"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:background="@drawable/main_topbutton"
+            android:src="@drawable/main_zoomin" />
+
+        <ImageButton
+            android:id="@+id/zoom_out"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:background="@drawable/main_bottombutton"
+            android:src="@drawable/main_zoomout" />
+    </LinearLayout>
+
+    <ViewSwitcher
+        android:id="@+id/location"
+        android:layout_width="44.0dip"
+        android:layout_height="44.0dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginLeft="6.0dip"
+        android:background="@drawable/main_locatebutton"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:scaleType="center"
+            android:src="@drawable/main_icon_location" />
+
+        <ProgressBar
+            android:id="@+id/location_progress"
+            style="@style/LocationProgressStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </ViewSwitcher>
+
+
+</merge>

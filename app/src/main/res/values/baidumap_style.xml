@@ -14,4 +14,15 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="LocationProgressStyle" parent="@android:style/Widget.ProgressBar">
+        <item name="android:maxWidth">20.0dip</item>
+        <item name="android:maxHeight">20.0dip</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/loc_progress_bar</item>
+        <item name="android:indeterminateDuration">1200</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:minWidth">20.0dip</item>
+        <item name="android:minHeight">20.0dip</item>
+    </style>
 </resources>

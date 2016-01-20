@@ -115,7 +115,7 @@ public class NonHierarchicalDistanceBasedAlgorithm<T extends ClusterItem> implem
                     continue;
                 }
                 StaticCluster<T> cluster =
-                        newStaticCluster<T>(candidate.mClusterItem.getPosition());
+                        new StaticCluster<T>(candidate.mClusterItem.getPosition());
                 results.add(cluster);
 
                 for (QuadItem<T> clusterItem : clusterItems) {

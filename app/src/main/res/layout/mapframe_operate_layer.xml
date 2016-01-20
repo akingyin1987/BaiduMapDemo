@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dim_background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <View
+        android:id="@+id/operate_cover_layer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#40000000" />
+
+    <ImageButton
+        android:id="@+id/operate_close_btn"
+        android:layout_width="40.0dip"
+        android:layout_height="40.0dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/main_map_operate_close"
+        android:layoutAnimation="@anim/alpha_layout" />
+
+    <RelativeLayout
+        android:id="@+id/operate_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/operate_line"
+        android:layout_width="wrap_content"
+        android:layout_height="40.0dip"
+        android:layout_alignTop="@id/operate_close_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@id/operate_close_btn"
+        android:layout_toRightOf="@id/operate_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:layout_gravity="center_vertical"
+            android:background="#ffebedf0" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="layer_2d">2D平面图</string>
+    <string name="layer_3d">3D俯视图</string>
+    <string name="layer_satellite">卫星图</string>
+
+
+    <string name="heatmap_crowd">拥挤</string>
+    <string name="heatmap_rare">稀少</string>
+</resources>

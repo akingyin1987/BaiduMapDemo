@@ -25,6 +25,7 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 
+import com.akingyin.baidumapdemo.R;
 import com.baidu.mapapi.clusterutil.MarkerManager;
 import com.baidu.mapapi.clusterutil.clustering.Cluster;
 import com.baidu.mapapi.clusterutil.clustering.ClusterItem;
@@ -54,7 +55,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import baidumapsdk.demo.R;
 
 import static com.baidu.mapapi.clusterutil.clustering.algo.NonHierarchicalDistanceBasedAlgorithm.MAX_DISTANCE_AT_ZOOM;
 
