@@ -1,6 +1,6 @@
 package com.akingyin.baidumapdemo.baidumap;
 
-import android.media.Image;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -127,8 +127,17 @@ public   abstract  class baseMapFragment  extends Fragment  implements ReceiveLo
 
             }
         });
+        map_layers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map_layers.setImageResource(R.drawable.main_icon_close);
+
+            }
+        });
 
     }
+
+
 
 
     public   abstract   void    initialization();

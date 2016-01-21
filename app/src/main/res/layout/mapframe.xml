@@ -83,6 +83,14 @@
                     android:layout_height="40.0dip"
                     android:background="@drawable/main_button"
                     android:src="@drawable/main_icon_maplayers" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/map_layers">
+
+                             >
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <LinearLayout
