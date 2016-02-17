@@ -66,8 +66,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".baidumap.BaiduPanoramaActivity"
+        <activity android:name="com.akingyin.baidumap.BaiduPanoramaActivity"
             android:screenOrientation="sensor"/>
+
+        <activity android:name="com.akingyin.WheelActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/sort_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="40.0dip"
+        android:minWidth="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/main_topbutton"
+        android:src="@drawable/main_zoomin" />
+
+    <com.akingyin.widget.WheelView
+        android:layout_width="wrap_content"
+
+        android:id="@+id/map_wheelview"
+        android:layout_height="wrap_content"/>
+
+    <ImageButton
+        android:id="@+id/sort_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="40.0dip"
+        android:minWidth="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/main_bottombutton"
+        android:src="@drawable/main_zoomout" />
+
+</LinearLayout>

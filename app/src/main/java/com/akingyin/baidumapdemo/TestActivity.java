@@ -3,7 +3,7 @@ package com.akingyin.baidumapdemo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.akingyin.baidumapdemo.baidumap.ReceiveLocListion;
+import com.akingyin.baidumap.ReceiveLocListion;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;

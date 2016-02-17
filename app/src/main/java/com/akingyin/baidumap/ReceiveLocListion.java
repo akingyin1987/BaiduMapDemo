@@ -1,4 +1,4 @@
-package com.akingyin.baidumapdemo.baidumap;
+package com.akingyin.baidumap;
 
 import com.baidu.location.BDLocation;
 

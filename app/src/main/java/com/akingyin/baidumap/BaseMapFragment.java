@@ -1,4 +1,4 @@
-package com.akingyin.baidumapdemo.baidumap;
+package com.akingyin.baidumap;
 
 
 import android.content.Intent;
@@ -17,10 +17,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
+import com.akingyin.WheelActivity;
 import com.akingyin.baidumapdemo.R;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BaiduMapOptions;
+
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -32,7 +33,7 @@ import com.baidu.mapapi.model.LatLng;
 /**
  * Created by Administrator on 2016/1/20.
  */
-public   abstract  class baseMapFragment  extends Fragment  implements ReceiveLocListion {
+public   abstract  class BaseMapFragment extends Fragment  implements ReceiveLocListion {
 
       private MapView mMapView;
       private BaiduMap mBaiduMap;
@@ -208,10 +209,13 @@ public   abstract  class baseMapFragment  extends Fragment  implements ReceiveLo
         map_street.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent  intent = new Intent(getContext(),BaiduPanoramaActivity.class);
-                intent.putExtra("lat",mBaiduMap.getLocationData().latitude);
-                intent.putExtra("lng",mBaiduMap.getLocationData().longitude);
-                startActivity(intent);
+//                Intent  intent = new Intent(getContext(),BaiduPanoramaActivity.class);
+//                intent.putExtra("lat",mBaiduMap.getLocationData().latitude);
+//                intent.putExtra("lng",mBaiduMap.getLocationData().longitude);
+//                startActivity(intent);
+                  Intent   intent  =  new Intent (getContext(), WheelActivity.class);
+                  startActivity(intent);
+
             }
         });
     }

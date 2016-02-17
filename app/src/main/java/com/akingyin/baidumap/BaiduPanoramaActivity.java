@@ -1,9 +1,7 @@
-package com.akingyin.baidumapdemo.baidumap;
+package com.akingyin.baidumap;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.akingyin.baidumapdemo.DemoApp;
 import com.akingyin.baidumapdemo.R;

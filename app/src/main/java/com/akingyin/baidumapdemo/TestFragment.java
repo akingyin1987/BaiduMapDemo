@@ -1,17 +1,15 @@
 package com.akingyin.baidumapdemo;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.akingyin.baidumapdemo.baidumap.baseMapFragment;
-import com.baidu.location.BDLocationListener;
+import com.akingyin.baidumap.BaseMapFragment;
 
 /**
  * Created by Administrator on 2016/1/21.
  */
-public class TestFragment  extends baseMapFragment {
+public class TestFragment  extends BaseMapFragment {
 
     public static TestFragment newInstance(double lat,double lng) {
         Bundle args = new Bundle();
