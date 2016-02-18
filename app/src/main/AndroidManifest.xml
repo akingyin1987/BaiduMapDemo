@@ -70,6 +70,7 @@
             android:screenOrientation="sensor"/>
 
         <activity android:name="com.akingyin.WheelActivity"/>
+        <activity android:name=".TestMainActivity"/>
     </application>
 
 </manifest>
