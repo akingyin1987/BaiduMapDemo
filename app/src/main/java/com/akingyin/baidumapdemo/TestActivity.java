@@ -42,6 +42,7 @@ public class TestActivity extends AppCompatActivity  implements BDLocationListen
     @Override
     public void onReceiveLocation(BDLocation bdLocation) {
          if(null != listion){
+             System.out.println(bdLocation.getLatitude()+":"+bdLocation.getLongitude());
              listion.onReceiveLocation(bdLocation);
          }
     }

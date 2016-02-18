@@ -77,6 +77,7 @@ public   abstract  class BaseMapFragment extends Fragment  implements ReceiveLoc
         map_layers = (ImageButton)view.findViewById(R.id.map_layers);
         map_street = (ImageButton)view.findViewById(R.id.map_street);
         baseInitialization(getArguments());
+        initialization();
         return view;
     }
 

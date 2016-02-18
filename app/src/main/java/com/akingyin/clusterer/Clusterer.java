@@ -10,6 +10,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 
+import com.akingyin.baidumapdemo.Mypoi;
 import com.akingyin.baidumapdemo.R;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -18,8 +19,9 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Projection;
-import com.baidu.mapapi.map.TextOptions;
+
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 
@@ -60,8 +62,8 @@ public class Clusterer<T extends Clusterable> {
     private OnPaintingClusterListener onPaintingCluster;
     private OnPaintingClusterableMarkerListener onPaintingMarker;
     private OnCameraChangeListener onCameraChangeListener;
-    private ReversibleHashMap<T, Marker> markers;
-    private HashMap<MarkerOptions, Cluster<T>> clusterMarkers;
+    private ReversibleHashMap<T, OverlayOptions> markers;
+    private HashMap<OverlayOptions, Cluster<T>> clusterMarkers;
     private UpdateMarkersTask task;
     private final Lock updatingLock;
     private final Handler refreshHandler;
@@ -131,7 +133,7 @@ public class Clusterer<T extends Clusterable> {
         return clustererClickListener;
     }
 
-    public void setClustererListener(ClustererClickListener clustererClickListener) {
+    public void setClustererListener(ClustererClickListener<T> clustererClickListener) {
         this.clustererClickListener = clustererClickListener;
     }
 
@@ -148,6 +150,7 @@ public class Clusterer<T extends Clusterable> {
                 return true;
             }
             if (clustererClickListener != null) {
+
                 clustererClickListener.markerClicked(getClusterableFromMarker(marker));
             }
             return false;
@@ -271,7 +274,7 @@ public class Clusterer<T extends Clusterable> {
 
             ClusteringProcessResultHolder<T> result = new ClusteringProcessResultHolder<T>();
             QuadTree<T> tree = params[0];
-
+            System.out.println("tree=");
             // Store old points
             List<T> pointsToKeep = new ArrayList<T>(markers.keySet());
             List<T> pointsToDelete = new ArrayList<T>(markers.keySet());
@@ -347,8 +350,9 @@ public class Clusterer<T extends Clusterable> {
             updatingLock.lock();
 
             // Remove all cluster marks (they will be regenerated)
-            List<MarkerOptions> deletedClusters = new ArrayList<MarkerOptions>();
-            for (MarkerOptions marker : clusterMarkers.keySet()) {
+            List<OverlayOptions> deletedClusters = new ArrayList<>();
+            for (OverlayOptions marker : clusterMarkers.keySet()) {
+
                 Cluster<T> cluster = clusterMarkers.get(marker);
                 if (result.clustersToDelete.contains(cluster)) {
                     manager.cleanMarker(marker);
@@ -357,16 +361,16 @@ public class Clusterer<T extends Clusterable> {
             }
 
             // Delete clusters marked for deletion
-            for (MarkerOptions marker : deletedClusters) {
+            for (OverlayOptions marker : deletedClusters) {
                 clusterMarkers.remove(marker);
             }
 
             // Mark for deletion all the pois that wont be shown in the map
             List<T> deleted = new ArrayList<T>();
             for (T poi : result.poisToDelete) {
-                Marker marker = markers.get(poi);
+                OverlayOptions marker = markers.get(poi);
                 if (marker != null) {
-                    marker.remove();
+                    manager.cleanMarker(marker);
                 }
                 deleted.add(poi);
             }
@@ -374,9 +378,9 @@ public class Clusterer<T extends Clusterable> {
             // Fixes for possible errors
             for (T poi : markers.keySet()) {
                 if (!result.pois.contains(poi)) {
-                    Marker marker = markers.get(poi);
+                    OverlayOptions marker = markers.get(poi);
                     if (marker != null) {
-                        marker.remove();
+                        manager.cleanMarker(marker);
                     }
                     deleted.add(poi);
                 }
@@ -384,7 +388,7 @@ public class Clusterer<T extends Clusterable> {
 
             // Actually remove the non shown pois
             for (T poi : deleted) {
-                Marker marker = markers.remove(poi);
+                OverlayOptions marker = markers.remove(poi);
             }
 
             // Retrieve the map from the weak reference to operate with it
@@ -392,7 +396,7 @@ public class Clusterer<T extends Clusterable> {
 
             if (strongMap == null) return;
 
-            ArrayList<MarkerOptions> newlyAddedMarkers = new ArrayList<MarkerOptions>();
+            ArrayList<OverlayOptions> newlyAddedMarkers = new ArrayList<>();
 
             // Generate all the clusters
             for (Cluster<T> cluster : result.clusters) {
@@ -401,11 +405,13 @@ public class Clusterer<T extends Clusterable> {
                     if (onPaintingCluster != null) {
 
                         marker =onPaintingCluster.onCreateClusterMarkerOptions(cluster);
+                        marker.animateType(MarkerOptions.MarkerAnimateType.drop);
                         onPaintingCluster.onMarkerCreated(marker, cluster);
                     } else {
                         marker = new MarkerOptions().position(cluster.getCenter());
                                 marker.title(Integer.valueOf(cluster.getWeight()).toString())
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marka));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marka))
+                                .animateType(MarkerOptions.MarkerAnimateType.drop);
                     }
                     manager.addMarker(marker);
                     newlyAddedMarkers.add(marker);
@@ -418,10 +424,14 @@ public class Clusterer<T extends Clusterable> {
                 if (!markers.containsKey(poi)) {
                     MarkerOptions marker;
                     if (onPaintingClusterableMarker != null) {
-                        marker = strongMap.addMarker(onPaintingClusterableMarker.onCreateMarkerOptions(poi));
+                        marker = onPaintingClusterableMarker.onCreateMarkerOptions(poi);
+                        marker.animateType(MarkerOptions.MarkerAnimateType.drop);
+                        manager.addMarker(marker);
                         onPaintingClusterableMarker.onMarkerCreated(marker, poi);
                     } else {
-                        marker = strongMap.addMarker(new MarkerOptions().position(poi.getPosition()));
+                        marker = new MarkerOptions().position(poi.getPosition()).icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_marka));
+                        marker.animateType(MarkerOptions.MarkerAnimateType.drop);
+                        manager.addMarker(marker);
                     }
                     newlyAddedMarkers.add(marker);
                     markers.put(poi, marker);
@@ -439,13 +449,15 @@ public class Clusterer<T extends Clusterable> {
 
             // Save bounds
             oldBounds = bounds;
+            System.out.println("添加Marker");
+            System.out.println(manager.getOverlayOptions().size());
             manager.addToMap();
             manager.zoomToSpan();
             updatingLock.unlock();
         }
     }
 
-    private void animateRecentlyAddedMarkers(final List<Marker> newlyAddedMarkers, final MarkerAnimation animation) {
+    private void animateRecentlyAddedMarkers(final List<OverlayOptions> newlyAddedMarkers, final MarkerAnimation animation) {
         final long start = SystemClock.uptimeMillis();
         final Handler handler = new Handler();
 
@@ -455,7 +467,7 @@ public class Clusterer<T extends Clusterable> {
                 long elapsed = SystemClock.uptimeMillis() - start;
                 float t = animationInterpolator.getInterpolation((float) elapsed / animationDuration);
 
-                for (Marker marker : newlyAddedMarkers) {
+                for (OverlayOptions marker : newlyAddedMarkers) {
                     animation.animateMarker(marker, t);
                 }
 
@@ -471,7 +483,7 @@ public class Clusterer<T extends Clusterable> {
         return markers.getKey(marker);
     }
 
-    public Marker getMarkerFromClusterable(T clusterable) {
+    public OverlayOptions getMarkerFromClusterable(T clusterable) {
         return markers.get(clusterable);
     }
 
