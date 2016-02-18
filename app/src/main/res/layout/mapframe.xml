@@ -107,19 +107,6 @@
                     android:src="@drawable/main_map_icon_streetscape" />
             </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         </LinearLayout>
     </RelativeLayout>
 
@@ -133,6 +120,7 @@
         android:layout_marginBottom="6.0dip"
         android:layout_marginRight="6.0dip"
         android:gravity="bottom"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <ImageButton

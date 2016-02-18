@@ -106,7 +106,7 @@ public class Clusterer<T extends Clusterable> {
                 LatLngBounds mapBounds =  mapStatus.bound;
                 if (oldZoomValue != mapStatus.zoom || oldBounds == null || !oldBounds.contains(mapBounds.northeast) || !oldBounds.contains(mapBounds.southwest)) {
                     oldZoomValue = mapStatus.zoom;
-
+                    oldBounds = mapBounds;
                     refreshHandler.removeCallbacks(updateMarkersRunnable);
                     refreshHandler.postDelayed(updateMarkersRunnable, UPDATE_INTERVAL_TIME);
 
@@ -271,7 +271,7 @@ public class Clusterer<T extends Clusterable> {
         @SafeVarargs
         @Override
         protected final ClusteringProcessResultHolder<T> doInBackground(QuadTree<T>... params) {
-
+            System.out.println("start=="+SystemClock.elapsedRealtime());
             ClusteringProcessResultHolder<T> result = new ClusteringProcessResultHolder<T>();
             QuadTree<T> tree = params[0];
             System.out.println("tree=");
@@ -292,14 +292,17 @@ public class Clusterer<T extends Clusterable> {
             result.pois.addAll(pointsInRegion);
 
             // Intersect the new points with the old points = get the points NOT TO delete
+            //取交集
             pointsToKeep.retainAll(pointsInRegion);
 
             // Remove from the old points the ones we don't want to delete = in here we will have everything not showing
+
             pointsToDelete.removeAll(pointsToKeep);
 
             // Create all the Clusters
             HashMap<Point, Cluster<T>> positions = new HashMap<Point, Cluster<T>>();
             for (T point : pointsInRegion) {
+
                 Point position = projection.toScreenLocation(point.getPosition());
                 boolean addedToCluster = false;
                 if (performCluster) {
@@ -337,7 +340,7 @@ public class Clusterer<T extends Clusterable> {
                     result.clustersToDelete.add(cluster);
                 }
             }
-
+            System.out.println("end="+SystemClock.elapsedRealtime());
             return (isCancelled()) ? null : result;
         }
 
@@ -395,7 +398,7 @@ public class Clusterer<T extends Clusterable> {
             BaiduMap strongMap = map.get();
 
             if (strongMap == null) return;
-
+            manager.cleanAllMarker();
             ArrayList<OverlayOptions> newlyAddedMarkers = new ArrayList<>();
 
             // Generate all the clusters
@@ -452,7 +455,7 @@ public class Clusterer<T extends Clusterable> {
             System.out.println("添加Marker");
             System.out.println(manager.getOverlayOptions().size());
             manager.addToMap();
-            manager.zoomToSpan();
+           // manager.zoomToSpan();
             updatingLock.unlock();
         }
     }

@@ -82,7 +82,8 @@ public   abstract  class BaseMapFragment extends Fragment  implements ReceiveLoc
     }
 
     private void baseInitialization(Bundle  bundle){
-        mMapView.showZoomControls(false);//隐藏比例尺
+        mMapView.showZoomControls(true);//隐藏比例尺
+
         //普通地图
         mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
         //开始交通地图
